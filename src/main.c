@@ -5,5 +5,9 @@
 #include <unistd.h>
 
 int main() {
+    while (1) {
+        printf("Waiting for Request...\n");
+        sleep(1);
+    }
     return 0;
 }
