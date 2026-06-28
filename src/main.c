@@ -14,16 +14,10 @@ int main() {
         return 1;
     }
 
-    struct sockaddr_in {
-        short int sin_family;
-        unsigned short int sin_port;
-        struct in_addr sin_addr;
-        unsigned char sin_zero[8];
-    };
-
-    struct in_addr {
-        uint32_t s_addr;
-    };
+    struct sockaddr_in server_addr = {0};
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(8080);
+    server_addr.sin_addr.s_addr = INADDR_ANY;
 
     printf("Socket Created!\nFD = %d\n", server_fd);
 
