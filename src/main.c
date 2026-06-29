@@ -10,7 +10,7 @@ int main() {
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
     if (server_fd == -1) {
-        perror("Bad Socket\n");
+        perror("Bad Socket");
         return 1;
     }
 
@@ -28,15 +28,34 @@ int main() {
         return 1;
     }
 
-    printf("Bind Successful!\n");
+    printf("Bind Successful!");
 
     int backlog = 5;
 
     int request = listen(server_fd, backlog);
 
-    // while (1) {
-    //     printf("Waiting for Request...\n");
-    //     sleep(1);
-    // }
+    if (request == -1) {
+        perror("Listen Failed!");
+        close(server_fd);
+        return 1;
+    }
+
+    while (1) {
+        struct sockaddr_in client_addr = {0};
+        socklen_t client_len = sizeof(client_addr);
+
+        int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_len);
+
+        if (client_fd == -1) {
+            perror("Accept Failed!");
+            continue;
+        }
+
+        printf("Client Connected");
+
+        close(client_fd);
+    }
+
+    close(server_fd);
     return 0;
 }
