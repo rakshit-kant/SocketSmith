@@ -21,6 +21,19 @@ int main() {
 
     printf("Socket Created!\nFD = %d\n", server_fd);
 
+    int result = bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr));
+
+    if (result == -1) {
+        perror("Bind Failed");
+        return 1;
+    }
+
+    printf("Bind Successful!\n");
+
+    int backlog = 5;
+
+    int request = listen(server_fd, backlog);
+
     // while (1) {
     //     printf("Waiting for Request...\n");
     //     sleep(1);
