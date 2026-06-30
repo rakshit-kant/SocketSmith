@@ -2,6 +2,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -64,6 +65,18 @@ int main() {
         } else {
             buffer[bytes_read] = '\0';
             printf("%s\n", buffer);
+        }
+
+        const char *response = "HTTP/1.1 200 OK\r\n"
+                               "Content-Type: text/plain\r\n"
+                               "Content-Length: 23\r\n"
+                               "\r\n"
+                               "Hello from SocketSmith!";
+
+        ssize_t bytes_sent = send(client_fd, response, strlen(response), 0);
+
+        if (bytes_sent == -1) {
+            perror("Send Failed!");
         }
 
         close(client_fd);
