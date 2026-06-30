@@ -24,11 +24,11 @@ int main() {
     int result = bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr));
 
     if (result == -1) {
-        perror("Bind Failed");
+        perror("Bind Failed!");
         return 1;
     }
 
-    printf("Bind Successful!");
+    printf("Bind Successful!\n");
 
     int backlog = 5;
 
@@ -51,7 +51,20 @@ int main() {
             continue;
         }
 
-        printf("Client Connected");
+        printf("Client Connected!\n");
+
+        char buffer[4097];
+
+        ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer));
+
+        if (bytes_read == -1) {
+            perror("Read Failed!");
+        } else if (bytes_read == 0) {
+            printf("Client Disconnected!\n");
+        } else {
+            buffer[bytes_read] = '\0';
+            printf("%s\n", buffer);
+        }
 
         close(client_fd);
     }
