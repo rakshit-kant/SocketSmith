@@ -67,11 +67,16 @@ int main() {
             printf("%s\n", buffer);
         }
 
-        const char *response = "HTTP/1.1 200 OK\r\n"
-                               "Content-Type: text/plain\r\n"
-                               "Content-Length: 23\r\n"
-                               "\r\n"
-                               "Hello from SocketSmith!";
+        const char *body = "<h1>Hello from SocketSmith!</h1>";
+        size_t body_len = strlen(body);
+        char response[8192];
+        snprintf(response, sizeof(response),
+                 "HTTP/1.1 200 OK\r\n"
+                 "Content-Type: text/html\r\n"
+                 "Content-Length: %zu\r\n"
+                 "\r\n"
+                 "%s",
+                 body_len, body);
 
         ssize_t bytes_sent = send(client_fd, response, strlen(response), 0);
 
