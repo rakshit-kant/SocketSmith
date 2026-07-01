@@ -67,7 +67,17 @@ int main() {
             printf("%s\n", buffer);
         }
 
-        const char *body = "<h1>Hello from SocketSmith!</h1>";
+        const char *body = "<!DOCTYPE html>"
+                           "<html>"
+                           "	<head>"
+                           "		<title>SocketSmith</title>"
+                           "	</head>"
+
+                           "	<body>"
+                           "		<h1> Hello from SocketSmith!</h1>"
+                           "		<p> My first HTTP Server in C</p>"
+                           "	</body>"
+                           "</html>";
         size_t body_len = strlen(body);
         char response[8192];
         snprintf(response, sizeof(response),
