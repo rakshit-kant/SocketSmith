@@ -1,4 +1,5 @@
 #include <arpa/inet.h>
+#include <fcntl.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
@@ -26,16 +27,13 @@ int main() {
 
     if (result == -1) {
         perror("Bind Failed!");
+        close(server_fd);
         return 1;
     }
 
     printf("Bind Successful!\n");
 
-    int backlog = 5;
-
-    int request = listen(server_fd, backlog);
-
-    if (request == -1) {
+    if (listen(server_fd, 5) == -1) {
         perror("Listen Failed!");
         close(server_fd);
         return 1;
@@ -56,39 +54,71 @@ int main() {
 
         char buffer[4097];
 
-        ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer));
+        ssize_t bytes_read = read(client_fd, buffer, sizeof(buffer) - 1);
 
-        if (bytes_read == -1) {
-            perror("Read Failed!");
-        } else if (bytes_read == 0) {
-            printf("Client Disconnected!\n");
-        } else {
-            buffer[bytes_read] = '\0';
-            printf("%s\n", buffer);
+        if (bytes_read <= 0) {
+            if (bytes_read == 0) {
+                printf("Client Disconnected!\n");
+            } else {
+                perror("Read Failed!");
+            }
+            close(client_fd);
+            continue;
         }
 
-        const char *body = "<!DOCTYPE html>"
-                           "<html>"
-                           "	<head>"
-                           "		<title>SocketSmith</title>"
-                           "	</head>"
+        buffer[bytes_read] = '\0';
 
-                           "	<body>"
-                           "		<h1> Hello from SocketSmith!</h1>"
-                           "		<p> My first HTTP Server in C</p>"
-                           "	</body>"
-                           "</html>";
-        size_t body_len = strlen(body);
+        char *first_line = strtok(buffer, "\r\n");
+
+        char method[16];
+        char path[256];
+        char version[16];
+
+        if (first_line != NULL) {
+            sscanf(first_line, "%15s %255s %15s", method, path, version);
+
+            printf("Method: %s\n", method);
+            printf("Path: %s\n", path);
+            printf("Version: %s\n", version);
+        }
+
+        const char *status;
+        const char *body;
+
+        if (strcmp(path, "/") == 0 || strcmp(path, "/home") == 0) {
+            status = "200 OK";
+            body = "<h1>Home Page</h1>";
+        } else if (strcmp(path, "/about") == 0) {
+            status = "200 OK";
+            body = "<h1>About SocketSmith</h1>";
+        } else {
+            status = "404 Not Found";
+            body = "<h1>404 Not Found</h1>";
+        }
+
+        // const char *body = "<!DOCTYPE html>"
+        //                   "<html>"
+        //                   "   <head>"
+        //                   "       <title>SocketSmith</title>"
+        //                   "   </head>"
+        //                   "   <body>"
+        //                   "       <h1>Hello from SocketSmith!</h1>"
+        //                   "       <p>My first HTTP Server in C</p>"
+        //                   "   </body>"
+        //                   "</html>";
+
         char response[8192];
+
         snprintf(response, sizeof(response),
-                 "HTTP/1.1 200 OK\r\n"
+                 "HTTP/1.1 %s\r\n"
                  "Content-Type: text/html\r\n"
                  "Content-Length: %zu\r\n"
+                 "Connection: close\r\n"
                  "\r\n"
                  "%s",
-                 body_len, body);
+                 status, strlen(body), body);
 
-        ssize_t bytes_sent = send(client_fd, response, strlen(response), 0);
+        ssize_t bytes_sent = send(client_fd, response, strlen(response), MSG_NOSIGNAL);
 
         if (bytes_sent == -1) {
             perror("Send Failed!");
