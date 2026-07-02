@@ -83,16 +83,27 @@ int main() {
 
         const char *status;
         const char *filename;
+        const char *content_type;
 
         if (strcmp(path, "/") == 0 || strcmp(path, "/home") == 0) {
             status = "200 OK";
             filename = "public/index.html";
+            content_type = "text/html";
+
         } else if (strcmp(path, "/about") == 0) {
             status = "200 OK";
             filename = "public/about.html";
+            content_type = "text/html";
+
+        } else if (strcmp(path, "/style.css") == 0) {
+            status = "200 OK";
+            filename = "public/style.css";
+            content_type = "text/css";
+
         } else {
             status = "404 Not Found";
             filename = "public/404.html";
+            content_type = "text/html";
         }
 
         FILE *file = fopen(filename, "r");
@@ -100,16 +111,17 @@ int main() {
         if (file == NULL) {
             perror("fopen");
             close(client_fd);
+            continue;
         }
 
         fseek(file, 0, SEEK_END);
         long file_size = ftell(file);
         rewind(file);
 
-        char body[8192];
+        char file_buffer[8192];
 
-        fread(body, 1, file_size, file);
-        body[file_size] = '\0';
+        fread(file_buffer, 1, file_size, file);
+        file_buffer[file_size] = '\0';
 
         fclose(file);
 
@@ -117,12 +129,12 @@ int main() {
 
         snprintf(response, sizeof(response),
                  "HTTP/1.1 %s\r\n"
-                 "Content-Type: text/html\r\n"
+                 "Content-Type: %s\r\n"
                  "Content-Length: %ld\r\n"
                  "Connection: close\r\n"
                  "\r\n"
                  "%s",
-                 status, file_size, body);
+                 status, content_type, file_size, file_buffer);
 
         ssize_t bytes_sent = send(client_fd, response, strlen(response), MSG_NOSIGNAL);
 
