@@ -1,5 +1,4 @@
 #include <arpa/inet.h>
-#include <fcntl.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <stdio.h>
@@ -83,40 +82,47 @@ int main() {
         }
 
         const char *status;
-        const char *body;
+        const char *filename;
 
         if (strcmp(path, "/") == 0 || strcmp(path, "/home") == 0) {
             status = "200 OK";
-            body = "<h1>Home Page</h1>";
+            filename = "public/index.html";
         } else if (strcmp(path, "/about") == 0) {
             status = "200 OK";
-            body = "<h1>About SocketSmith</h1>";
+            filename = "public/about.html";
         } else {
             status = "404 Not Found";
-            body = "<h1>404 Not Found</h1>";
+            filename = "public/404.html";
         }
 
-        // const char *body = "<!DOCTYPE html>"
-        //                   "<html>"
-        //                   "   <head>"
-        //                   "       <title>SocketSmith</title>"
-        //                   "   </head>"
-        //                   "   <body>"
-        //                   "       <h1>Hello from SocketSmith!</h1>"
-        //                   "       <p>My first HTTP Server in C</p>"
-        //                   "   </body>"
-        //                   "</html>";
+        FILE *file = fopen(filename, "r");
+
+        if (file == NULL) {
+            perror("fopen");
+            close(client_fd);
+        }
+
+        fseek(file, 0, SEEK_END);
+        long file_size = ftell(file);
+        rewind(file);
+
+        char body[8192];
+
+        fread(body, 1, file_size, file);
+        body[file_size] = '\0';
+
+        fclose(file);
 
         char response[8192];
 
         snprintf(response, sizeof(response),
                  "HTTP/1.1 %s\r\n"
                  "Content-Type: text/html\r\n"
-                 "Content-Length: %zu\r\n"
+                 "Content-Length: %ld\r\n"
                  "Connection: close\r\n"
                  "\r\n"
                  "%s",
-                 status, strlen(body), body);
+                 status, file_size, body);
 
         ssize_t bytes_sent = send(client_fd, response, strlen(response), MSG_NOSIGNAL);
 
