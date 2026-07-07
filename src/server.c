@@ -33,7 +33,10 @@ int create_server(int port) {
     if (listen(server_fd, 5) == -1) {
         perror("Listen Failed");
         close(server_fd);
+        return -1;
     }
+
+    printf("Listening on port %d...\n", port);
 
     return server_fd;
 }

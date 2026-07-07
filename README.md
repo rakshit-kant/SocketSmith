@@ -4,7 +4,7 @@ A kinda minimal and simple HTTP Server made in C for learning about Networking.
 
 ## Features
 
-It just is a Simple HTTP Server. It is kinda a TCP based HTTP Server which just gets the Client Request and Pastes a Custom Text (Hardcoded in the Code) on the Browser Page.
+It just is a Simple HTTP Server. It is kinda a TCP based HTTP Server which just gets the Client Request and Shows HTML some HTML Pages (like /home)on the Browser Page.
 
 ## Requirements
 
