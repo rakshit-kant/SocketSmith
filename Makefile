@@ -1,14 +1,19 @@
 CC      = clang
 CFLAGS  = -Wall -Wextra -std=c11 -Iinclude
+
 SRC     = $(wildcard src/*.c)
 OBJ     = $(SRC:.c=.o)
-TARGET  = socketsmith
+
+TARGET  = build/linux/socketsmith
 
 .PHONY: all clean run
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ)
+build/linux:
+	mkdir -p build/linux
+
+$(TARGET): build/linux $(OBJ)
 	$(CC) $(OBJ) -o $(TARGET)
 
 src/%.o: src/%.c
@@ -18,4 +23,5 @@ run: all
 	./$(TARGET)
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(OBJ)
+	rm -rf build
