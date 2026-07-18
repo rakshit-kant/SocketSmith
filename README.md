@@ -17,6 +17,8 @@ Tried to make my Own Website Server which Opens my CSS and HTML Files without th
 
 ## Usage/Running
 
+### By just cloning the Repo and doing it Simply
+
 ```bash
 git clone https://github.com/rakshit-kant/SocketSmith.git
 cd SocketSmith
@@ -24,6 +26,19 @@ make run
 ```
 
 Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
+
+## By using the Release Source Code
+
+```bash
+curl -L https://github.com/rakshit-kant/SocketSmith/archive/refs/tags/v0.1.0.tar.gz \
+| tar -xz \
+&& cd SocketSmith-0.1.0 \
+&& make run
+```
+
+Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
+
+**Note: The Release does not have a Simple Binary because the Server needs an HTML and a CSS File to get Served.**
 
 ## LICENSE
 
