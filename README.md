@@ -18,6 +18,8 @@ Tried to make my Own Website Server which Opens my CSS and HTML Files without th
 ## Usage/Running
 
 ```bash
+git clone https://github.com/rakshit-kant/SocketSmith.git
+cd SocketSmith
 make run
 ```
 
