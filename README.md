@@ -38,7 +38,7 @@ curl -L https://github.com/rakshit-kant/SocketSmith/archive/refs/tags/v0.1.0.tar
 
 Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
 
-**Note: The Release does not have a Simple Binary because the Server needs an HTML and a CSS File to get Served.**
+**Note:** The release is distributed as source because SocketSmith serves static HTML and CSS assets that must be present alongside the executable.
 
 ## LICENSE
 
