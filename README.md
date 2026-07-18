@@ -8,7 +8,7 @@ It just is a Simple HTTP Server. It is kinda a TCP based HTTP Server which just 
 
 ## Uses of the HTTP Server
 
-- Tried to make my Own Website Hoster, I mean I wanted to make something of my own instead of using VS Code Live Server Extension. This Project does not has Live Updating like that Extension but is still great at providing me Value. This is one of my Projects I would use instead of it being rotting in the Corner of my Projects Folder.
+Tried to make my Own Website Server which Opens my CSS and HTML Files without the VS Code Live Server Extension, I mean I wanted to make something of my own instead of using VS Code Live Server Extension. This Project does not has Live Updating like that Extension but is still great at providing me Value. This is one of my Projects I would use instead of it being rotting in the Corner of my Projects Folder.
 
 ## Requirements
 
