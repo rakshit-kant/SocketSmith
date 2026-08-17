@@ -27,18 +27,13 @@ make run
 
 Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
 
-## By using the Release Source Code
+## By using the Released Executable
 
 ```bash
-curl -L https://github.com/rakshit-kant/SocketSmith/archive/refs/tags/v0.1.0.tar.gz \
-| tar -xz \
-&& cd SocketSmith-0.1.0 \
-&& make run
+curl -L https://github.com/rakshit-kant/SocketSmith/releases/download/v0.1.0/SocketSmith -o SocketSmith && chmod +x SocketSmith && ./SocketSmith
 ```
 
 Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
-
-**Note:** The release is distributed as source because SocketSmith serves static HTML and CSS assets that must be present alongside the executable.
 
 ## LICENSE
 
