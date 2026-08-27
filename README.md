@@ -1,3 +1,7 @@
+# WARNING
+
+**The Following Project only works in Linux Systems and Not in Windows due to the API differences that Windows uses**
+
 # SocketSmith
 
 A kinda minimal and simple HTTP Server made in C for learning about Networking.
