@@ -1,6 +1,6 @@
 # WARNING
 
-**The Following Project only works in Linux Systems and Not in Windows due to the API differences that Windows uses**
+**The Following Project only works in Linux Systems and Not in Windows due to the API differences between Windows and Linux Systems**
 
 # SocketSmith
 
