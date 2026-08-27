@@ -34,7 +34,7 @@ Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
 ## By using the Released Executable
 
 ```bash
-curl -L https://github.com/rakshit-kant/SocketSmith/releases/download/v0.1.0/SocketSmith -o SocketSmith && chmod +x SocketSmith && ./SocketSmith
+curl -LO https://github.com/rakshit-kant/socketsmith/releases/download/v0.1.0/socketsmith && chmod +x socketsmith && ./socketsmith
 ```
 
 Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
