@@ -14,7 +14,7 @@ build/linux:
 	mkdir -p build/linux
 
 $(TARGET): build/linux $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET)
+	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
 src/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
