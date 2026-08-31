@@ -29,7 +29,8 @@ cd SocketSmith
 make run
 ```
 
-Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
+Then Open <http://localhost:8080> in Chrome/Firefox (Microsoft Edge Sucks!)
+
 Note: Also try the 404, and About Pages using <http://localhost:8080/404> and <http://localhost:8080/about>
 
 ### By using the Released Executable
@@ -39,11 +40,13 @@ curl -LO https://github.com/rakshit-kant/socketsmith/releases/download/v0.1.0/so
 ```
 
 Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
+
 Note: Also try the 404, and About Pages using <http://localhost:8080/404> and <http://localhost:8080/about>
 
 ## How to use your own CSS and HTML Files
 
 Replace the 404.html, about.html, index.html and style.css with your CSS and HTML Files
+
 Note: The Names of your HTML Files should have the same naming as the 404.html, about.html, index.html and style.css files as this Version (v0.1.0) of SocketSmith does not support different names of HTML/CSS Files.
 
 ## LICENSE
