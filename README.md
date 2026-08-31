@@ -39,7 +39,7 @@ Note: Also try the 404, and About Pages using <http://localhost:8080/404> and <h
 curl -LO https://github.com/rakshit-kant/socketsmith/releases/download/v0.1.0/socketsmith && chmod +x socketsmith && ./socketsmith
 ```
 
-Then Open ```http://localhost:8080``` in Chrome/Firefox (Microsoft Edge Sucks!)
+Then Open <http://localhost:8080> in Chrome/Firefox (Microsoft Edge Sucks!)
 
 Note: Also try the 404, and About Pages using <http://localhost:8080/404> and <http://localhost:8080/about>
 
